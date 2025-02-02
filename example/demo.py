@@ -44,7 +44,7 @@ import rospy
 from geometry_msgs.msg import Pose, Point, Quaternion, Vector3, Polygon
 from tf import transformations # rotation_matrix(), concatenate_matrices()
 
-import rviz_tools_py as rviz_tools
+import rviz_tools_py
 
 
 # Initialize the ROS Node
@@ -52,13 +52,13 @@ rospy.init_node('test', anonymous=False, log_level=rospy.INFO, disable_signals=F
 
 # Define exit handler
 def cleanup_node():
-    print "Shutting down node"
+    print ("Shutting down node")
     markers.deleteAllMarkers()
 
 rospy.on_shutdown(cleanup_node)
 
 
-markers = rviz_tools.RvizMarkers('/map', 'visualization_marker')
+markers = rviz_tools_py.RvizMarkers('world', 'visualization_marker')
 
 
 while not rospy.is_shutdown():
@@ -119,7 +119,7 @@ while not rospy.is_shutdown():
     # Publish a rectangle between two points (thin, planar surface)
     # If the z-values are different, this will produce a cuboid
     point1 = Point(-1,0,0)
-    point2 = Point(-2,-1,0) 
+    point2 = Point(-2,-1,-1) 
     markers.publishRectangle(point1, point2, 'blue', 5.0)
 
     # Publish a rotated plane using a numpy transform matrix
@@ -315,4 +315,4 @@ while not rospy.is_shutdown():
     markers.publishMesh(P, mesh_file3, None, mesh_scale, 5.0) # pose, mesh_file_name, color, mesh_scale, lifetime
 
 
-    rospy.Rate(1).sleep() #1 Hz
+    rospy.Rate(5).sleep() #1 Hz

@@ -109,6 +109,7 @@ class RvizMarkers(object):
         self.line_marker.action = Marker().ADD
         self.line_marker.type = Marker().LINE_STRIP
         self.line_marker.lifetime = self.marker_lifetime
+        self.line_marker.pose.orientation.w = 1.0
 
         # Path Marker (Line List)
         self.path_marker = Marker()
@@ -957,6 +958,7 @@ class RvizMarkers(object):
         rect_pose.position.y = (rect_point1.y - rect_point2.y) / 2.0 + rect_point2.y
         rect_pose.position.z = (rect_point1.z - rect_point2.z) / 2.0 + rect_point2.z
         rectangle_marker.pose = rect_pose
+        rectangle_marker.pose.orientation.w = 1.0
 
         # Calculate scale
         rectangle_marker.scale.x = numpy.fabs(rect_point1.x - rect_point2.x)
